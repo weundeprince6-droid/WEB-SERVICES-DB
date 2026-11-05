@@ -131,11 +131,12 @@ input,select{background:var(--surface);color:var(--text-main);border:1px solid v
 <body>
 
     <header class="dashboard-header">
-        <div>
-            <h2><i class="fa-solid fa-fire"></i> Gestion AVEC - Base Cloud</h2>
-            <p>Compte : <strong>weundeprince6@gmail.com</strong></p>
-        </div>
+      <div class="brand-wrap"><span class="brand-mark">ESE</span><div><h2><i class="fa-solid fa-leaf"></i> ESE DB <span style="color:var(--primary)">|</span> Gestion AVEC</h2><p>Votre espace de gestion et de pilotage</p></div></div>
+      <div class="header-actions"><button class="theme-toggle" id="themeToggle" type="button">🌙 Mode sombre</button></div>
     </header>
+    <div class="page-wrap">
+      <section class="dashboard-welcome"><div><div class="eyebrow">TABLEAU DE BORD • ESE DB</div><h1>Bienvenue dans votre espace de gestion</h1><p>Suivez l’épargne, le fonds social, les crédits et les membres en un seul endroit.</p></div><div class="welcome-pill"><i class="fa-solid fa-cloud"></i> Synchronisation Firebase</div></section>
+      <nav class="quick-actions" aria-label="Accès rapides"><a href="#member-card"><i class="fa-solid fa-user-plus"></i> Nouveau membre</a><a href="#deposit-card"><i class="fa-solid fa-coins"></i> Dépôt</a><a href="#credit-card"><i class="fa-solid fa-hand-holding-dollar"></i> Crédit</a><a href="#repay-card"><i class="fa-solid fa-rotate-left"></i> Remboursement</a><a href="#members-card"><i class="fa-solid fa-users"></i> Membres</a></nav>
 
     <!-- CAISSE GLOBALE STATS -->
     <div class="stats-grid">
@@ -173,7 +174,7 @@ input,select{background:var(--surface);color:var(--text-main);border:1px solid v
         <!-- FORMULAIRES -->
         <div>
             <!-- 1. ENREGISTRER UN MEMBRE -->
-            <section class="card">
+            <section class="card" id="member-card">
                 <div class="card-header">
                     <i class="fa-solid fa-user-plus"></i>
                     <h3>1. Enregistrer un Membre</h3>
@@ -200,7 +201,7 @@ input,select{background:var(--surface);color:var(--text-main);border:1px solid v
             </section>
 
             <!-- 2. DÉPÔT ÉPARGNE / SOCIAL -->
-            <section class="card">
+            <section class="card" id="deposit-card">
                 <div class="card-header">
                     <i class="fa-solid fa-coins"></i>
                     <h3>2. Effectuer un Dépôt</h3>
@@ -228,7 +229,7 @@ input,select{background:var(--surface);color:var(--text-main);border:1px solid v
             </section>
 
             <!-- 3. OCTROYER UN CRÉDIT -->
-            <section class="card">
+            <section class="card" id="credit-card">
                 <div class="card-header">
                     <i class="fa-solid fa-calculator"></i>
                     <h3>3. Octroyer un Crédit (Max 3x Épargne)</h3>
@@ -251,7 +252,7 @@ input,select{background:var(--surface);color:var(--text-main);border:1px solid v
             </section>
 
             <!-- 4. REMBOURSEMENT -->
-            <section class="card">
+            <section class="card" id="repay-card">
                 <div class="card-header">
                     <i class="fa-solid fa-hand-holding-dollar"></i>
                     <h3>4. Enregistrer un Remboursement</h3>
@@ -274,7 +275,7 @@ input,select{background:var(--surface);color:var(--text-main);border:1px solid v
 
         <!-- TABLEAU RÉPERTOIRE EN TEMPS RÉEL -->
         <div>
-            <section class="card">
+            <section class="card" id="members-card">
                 <div class="card-header">
                     <i class="fa-solid fa-users"></i>
                     <h3>Répertoire & Situation des Membres (Cloud)</h3>
