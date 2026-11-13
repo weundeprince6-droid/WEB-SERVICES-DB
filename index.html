@@ -2,7 +2,7 @@
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <title>Gestion AVEC - Synchronisation Firebase Cloud</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -176,8 +176,8 @@ tbody tr{transition:background .15s}
  .brand-mark{width:35px;height:35px;border-radius:11px;font-size:12px}
  .dashboard-header h2{font-size:13px}
  .dashboard-header p{max-width:190px}
- .theme-toggle{font-size:0;padding:10px}
- .theme-toggle::first-letter{font-size:16px}
+ .theme-toggle{padding:10px;min-width:44px}
+ .theme-toggle .tl{display:none}
  .stats-grid{grid-template-columns:1fr 1fr}
 }
 @media(prefers-reduced-motion:reduce){
@@ -185,13 +185,39 @@ tbody tr{transition:background .15s}
  *,*::before,*::after{transition:none!important;animation:none!important}
 }
 
+/* Correctif mobile ESE DB — empêche le défilement latéral de la page */
+.grid-container>*{min-width:0}
+.card,.stat-card,.stat-content{min-width:0}
+.stat-content .label{overflow-wrap:anywhere}
+@media(max-width:900px){
+ .grid-container{grid-template-columns:minmax(0,1fr)}
+}
+@media(max-width:700px){
+ /* 16 px minimum : évite le zoom automatique d'iPhone quand on touche un champ */
+ input,select{font-size:16px}
+ .btn{min-height:48px}
+ .dashboard-header{padding-top:max(12px,env(safe-area-inset-top))}
+ .page-wrap{padding-left:max(14px,env(safe-area-inset-left));padding-right:max(14px,env(safe-area-inset-right));padding-bottom:max(45px,calc(env(safe-area-inset-bottom) + 24px))}
+}
+@media(max-width:560px){
+ /* L'en-tête collant garde un seul bandeau fin pour laisser de la place au contenu */
+ .dashboard-header p{display:none}
+ html{scroll-padding-top:70px}
+ .dashboard-header{align-items:center}
+ table{min-width:0;font-size:12px}
+ th{white-space:normal;font-size:11px;line-height:1.25}
+ td,th{padding:9px 6px}
+ td:first-child,th:first-child{padding-left:8px}
+ td:not(:first-child),th:not(:first-child){text-align:right}
+ .quick-actions a{min-height:42px}
+}
 </style>
 </head>
 <body>
 
     <header class="dashboard-header">
       <div class="brand-wrap"><span class="brand-mark">ESE</span><div><h2><i class="fa-solid fa-leaf"></i> ESE DB <span style="color:var(--primary)">|</span> Gestion AVEC</h2><p>Votre espace de gestion et de pilotage</p></div></div>
-      <div class="header-actions"><button class="theme-toggle" id="themeToggle" type="button">🌙 Mode sombre</button></div>
+      <div class="header-actions"><button class="theme-toggle" id="themeToggle" type="button" aria-label="Changer de thème"><span class="ti">🌙</span><span class="tl">Mode sombre</span></button></div>
     </header>
     <div class="page-wrap">
       <section class="dashboard-welcome"><div><div class="eyebrow">TABLEAU DE BORD • ESE DB</div><h1>Bienvenue dans votre espace de gestion</h1><p>Suivez l’épargne, le fonds social, les crédits et les membres en un seul endroit.</p></div><div class="welcome-pill"><i class="fa-solid fa-cloud"></i> Synchronisation Firebase</div></section>
@@ -360,7 +386,7 @@ tbody tr{transition:background .15s}
 
     </div><!-- /page-wrap -->
     <script>
-      (()=>{const root=document.documentElement,btn=document.getElementById('themeToggle');let theme=localStorage.getItem('ese-db-theme');if(theme!=='light'&&theme!=='dark')theme=matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light';root.dataset.theme=theme;const paint=()=>{btn.textContent=root.dataset.theme==='dark'?'☀️ Mode clair':'🌙 Mode sombre';};paint();btn.addEventListener('click',()=>{root.dataset.theme=root.dataset.theme==='dark'?'light':'dark';localStorage.setItem('ese-db-theme',root.dataset.theme);paint();});})();
+      (()=>{const root=document.documentElement,btn=document.getElementById('themeToggle');let theme=localStorage.getItem('ese-db-theme');if(theme!=='light'&&theme!=='dark')theme=matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light';root.dataset.theme=theme;const paint=()=>{const dark=root.dataset.theme==='dark';btn.innerHTML='<span class="ti">'+(dark?'☀️':'🌙')+'</span><span class="tl">'+(dark?'Mode clair':'Mode sombre')+'</span>';btn.style.gap='8px';};paint();btn.addEventListener('click',()=>{root.dataset.theme=root.dataset.theme==='dark'?'light':'dark';localStorage.setItem('ese-db-theme',root.dataset.theme);paint();});})();
     </script>
     <!-- FIREBASE MODULES ET CONFIGURATION -->
     <script type="module">
